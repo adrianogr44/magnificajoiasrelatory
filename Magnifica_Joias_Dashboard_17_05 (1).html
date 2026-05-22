@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnífica Joias · Dashboard Live 17/05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0F0F0F;
+  --charcoal: #1A1A1A;
+  --graphite: #2A2A2A;
+  --gold: #C9A961;
+  --gold-light: #E5CB8C;
+  --gold-deep: #8B6F47;
+  --cream: #F5EDE0;
+  --cream-bg: #FBF8F3;
+  --white: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6B6B6B;
+  --text-on-dark: #F5EDE0;
+  --text-muted-dark: #8A8073;
+  --red: #B85C5C;
+  --green: #6B8E5A;
+  --divider: rgba(201, 169, 97, 0.2);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-body);
+  background: var(--cream-bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+/* ---------- noise overlay sutil ---------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ---------- HEADER ---------- */
+.header {
+  background: var(--black);
+  color: var(--text-on-dark);
+  padding: 48px 56px 56px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--divider);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 56px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.brand-text {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.status-pill {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.15);
+}
+
+.header-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 24px;
+  max-width: 800px;
+}
+
+.header-meta {
+  display: flex;
+  gap: 64px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(201, 169, 97, 0.15);
+  flex-wrap: wrap;
+}
+
+.header-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.meta-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--white);
+}
+
+/* ---------- MAIN ---------- */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 64px 56px 80px;
+}
+
+/* ---------- SECTION ---------- */
+section { margin-bottom: 72px; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.015em;
+  color: var(--black);
+}
+
+.section-aside {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------- KPI GRID ---------- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.kpi-card {
+  background: var(--white);
+  padding: 32px 28px 28px;
+  position: relative;
+  border-top: 2px solid var(--gold);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -8px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 16px 32px -8px rgba(0,0,0,0.1);
+}
+
+.kpi-card.dark {
+  background: var(--black);
+  color: var(--text-on-dark);
+  border-top-color: var(--gold);
+}
+
+.kpi-label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.kpi-card.dark .kpi-label { color: var(--gold); }
+
+.kpi-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--black);
+  margin-bottom: 14px;
+}
+
+.kpi-card.dark .kpi-value { color: var(--white); }
+
+.kpi-value .currency {
+  font-size: 32px;
+  font-weight: 400;
+  font-style: italic;
+  margin-right: 4px;
+  letter-spacing: -0.02em;
+}
+
+.kpi-divider {
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 12px;
+}
+
+.kpi-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.kpi-card.dark .kpi-hint { color: var(--text-muted-dark); }
+
+/* ---------- AUDIENCE SECTION ---------- */
+.audience-block {
+  background: var(--black);
+  color: var(--text-on-dark);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.audience-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gold);
+}
+
+.audience-numbers {
+  display: flex;
+  gap: 48px;
+}
+
+.audience-number {
+  flex: 1;
+}
+
+.audience-number .label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.audience-number .value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 110px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.audience-number.muted .value { color: var(--gold-light); opacity: 0.85; }
+
+.audience-number .desc {
+  font-size: 13px;
+  color: var(--text-muted-dark);
+  font-style: italic;
+  max-width: 220px;
+  line-height: 1.5;
+}
+
+.audience-viz {
+  position: relative;
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  padding: 24px 24px 0;
+  border-left: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.viz-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.viz-bar .bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  border-radius: 2px 2px 0 0;
+  animation: barRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.viz-bar:nth-child(1) .bar { animation-delay: 0.2s; }
+.viz-bar:nth-child(2) .bar { animation-delay: 0.4s; }
+
+@keyframes barRise {
+  from { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+.viz-bar .bar-value {
+  position: absolute;
+  top: -32px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.viz-bar .bar-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ---------- CAMPAIGNS ---------- */
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.campaign-card {
+  background: var(--white);
+  padding: 36px 36px 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-left: 3px solid var(--gold);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -8px rgba(0,0,0,0.06);
+  min-height: 240px;
+}
+
+.campaign-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 56px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.campaign-tag {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.campaign-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--black);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.campaign-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ---------- COMPARATIVE TABLE ---------- */
+.compare-wrap {
+  background: var(--white);
+  padding: 8px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -8px rgba(0,0,0,0.06);
+  border-top: 2px solid var(--gold);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 18px 24px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.compare-table thead th {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid var(--divider);
+  padding-top: 24px;
+  padding-bottom: 14px;
+}
+
+.compare-table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.compare-table tbody tr:last-child { border-bottom: none; }
+
+.compare-table tbody tr:hover {
+  background: var(--cream-bg);
+}
+
+.compare-table .metric-name {
+  font-weight: 500;
+  color: var(--black);
+}
+
+.compare-table .num {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--black);
+  letter-spacing: -0.01em;
+}
+
+.compare-table .num.muted {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.delta.neg {
+  color: var(--red);
+  background: rgba(184, 92, 92, 0.08);
+}
+
+.delta.pos {
+  color: var(--green);
+  background: rgba(107, 142, 90, 0.1);
+}
+
+.delta.neutral {
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.04);
+}
+
+.delta-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+/* ---------- ATTENTION CALLOUTS ---------- */
+.callouts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.callout {
+  padding: 24px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+}
+
+.callout-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.callout-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.callout-text strong {
+  color: var(--black);
+  font-weight: 700;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  background: var(--black);
+  color: var(--gold-deep);
+  padding: 40px 56px;
+  text-align: center;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+}
+
+.footer-text {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section {
+  animation: fadeUp 0.7s ease-out backwards;
+}
+
+section:nth-of-type(1) { animation-delay: 0.1s; }
+section:nth-of-type(2) { animation-delay: 0.25s; }
+section:nth-of-type(3) { animation-delay: 0.4s; }
+section:nth-of-type(4) { animation-delay: 0.55s; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1024px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .audience-block { grid-template-columns: 1fr; gap: 40px; }
+  .callouts { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .header { padding: 32px 24px 40px; }
+  main { padding: 40px 24px 60px; }
+  .footer { padding: 32px 24px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .campaigns-grid { grid-template-columns: 1fr; }
+  .audience-numbers { flex-direction: column; gap: 32px; }
+  .audience-number .value { font-size: 80px; }
+  .header-meta { gap: 32px; }
+  .compare-table th, .compare-table td { padding: 14px 12px; font-size: 13px; }
+  .section-head { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-text">Magnífica Joias</div>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      <span>Captação · Live encerrada</span>
+    </div>
+  </div>
+
+  <div class="header-eyebrow">Dashboard de Performance</div>
+  <h1 class="header-title">Live de captação<br>17 de maio</h1>
+
+  <div class="header-meta">
+    <div class="header-meta-item">
+      <span class="meta-label">Cliente</span>
+      <span class="meta-value">Magnífica Joias</span>
+    </div>
+    <div class="header-meta-item">
+      <span class="meta-label">Data da live</span>
+      <span class="meta-value">17 de maio de 2026</span>
+    </div>
+    <div class="header-meta-item">
+      <span class="meta-label">Estratégia</span>
+      <span class="meta-value">Tráfego pago · 2 campanhas</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ KPIs ============ -->
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Visão Geral</div>
+      <h2 class="section-title">Métricas principais</h2>
+    </div>
+    <div class="section-aside">Resultados consolidados da captação</div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Leads gerados</div>
+      <div class="kpi-value">1.077</div>
+      <div class="kpi-divider"></div>
+      <div class="kpi-hint">brutos captados pelos anúncios da live</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value"><span class="currency">R$</span>2.196<span style="font-size:32px;font-weight:400;font-style:italic;">,32</span></div>
+      <div class="kpi-divider"></div>
+      <div class="kpi-hint">verba total aplicada em tráfego pago</div>
+    </div>
+
+    <div class="kpi-card dark">
+      <div class="kpi-label">Custo por Lead</div>
+      <div class="kpi-value"><span class="currency">R$</span>2,04</div>
+      <div class="kpi-divider"></div>
+      <div class="kpi-hint">custo médio por lead bruto captado</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Pico de espectadores</div>
+      <div class="kpi-value">110</div>
+      <div class="kpi-divider"></div>
+      <div class="kpi-hint">pessoas conectadas no momento de maior audiência</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIÊNCIA ============ -->
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Audiência ao vivo</div>
+      <h2 class="section-title">Performance durante a live</h2>
+    </div>
+  </div>
+
+  <div class="audience-block">
+    <div class="audience-numbers">
+      <div class="audience-number muted">
+        <div class="label">Média</div>
+        <div class="value">80</div>
+        <div class="desc">espectadores conectados em média durante toda a transmissão.</div>
+      </div>
+      <div class="audience-number">
+        <div class="label">Pico</div>
+        <div class="value">110</div>
+        <div class="desc">pessoas no momento de maior audiência da live.</div>
+      </div>
+    </div>
+
+    <div class="audience-viz">
+      <div class="viz-bar">
+        <div class="bar-value">80</div>
+        <div class="bar" style="height: 110px;"></div>
+        <div class="bar-label">Média</div>
+      </div>
+      <div class="viz-bar">
+        <div class="bar-value">110</div>
+        <div class="bar" style="height: 150px;"></div>
+        <div class="bar-label">Pico</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAMPANHAS ============ -->
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Estrutura de tráfego pago</div>
+      <h2 class="section-title">As 2 campanhas em rotação</h2>
+    </div>
+  </div>
+
+  <div class="campaigns-grid">
+    <div class="campaign-card">
+      <div class="campaign-num">01</div>
+      <div class="campaign-tag">Pré-live</div>
+      <h3 class="campaign-title">ABO · Públicos quentes</h3>
+      <p class="campaign-desc">Campanha estruturada em ABO (orçamento por conjunto de anúncios), focada em públicos quentes — pessoas que já interagiram com a página e com a marca da Magnífica.</p>
+    </div>
+
+    <div class="campaign-card">
+      <div class="campaign-num">02</div>
+      <div class="campaign-tag">Pré-live</div>
+      <h3 class="campaign-title">CBO · Advantage+ ligado</h3>
+      <p class="campaign-desc">Campanha em CBO (orçamento na campanha) com Advantage+ ativado, permitindo que o algoritmo do Meta otimize a entrega em audiências similares e amplie o alcance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARATIVO ============ -->
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Comparativo · Live 10/05 vs 17/05</div>
+      <h2 class="section-title">Performance entre as duas lives</h2>
+    </div>
+    <div class="section-aside">Variação livre-a-livre da Magnífica Joias</div>
+  </div>
+
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Métrica</th>
+          <th>Live 10/05</th>
+          <th>Live 17/05</th>
+          <th>Variação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric-name">Leads gerados</td>
+          <td class="num muted">1.681</td>
+          <td class="num">1.077</td>
+          <td><span class="delta neg"><span class="delta-icon">▼</span> 36%</span></td>
+        </tr>
+        <tr>
+          <td class="metric-name">Investimento</td>
+          <td class="num muted">R$ 2.762,15</td>
+          <td class="num">R$ 2.196,32</td>
+          <td><span class="delta neutral"><span class="delta-icon">▼</span> 20%</span></td>
+        </tr>
+        <tr>
+          <td class="metric-name">Custo por Lead (CPL)</td>
+          <td class="num muted">R$ 1,64</td>
+          <td class="num">R$ 2,04</td>
+          <td><span class="delta neg"><span class="delta-icon">▲</span> 24%</span></td>
+        </tr>
+        <tr>
+          <td class="metric-name">Média de espectadores</td>
+          <td class="num muted">110</td>
+          <td class="num">80</td>
+          <td><span class="delta neg"><span class="delta-icon">▼</span> 27%</span></td>
+        </tr>
+        <tr>
+          <td class="metric-name">Pico de espectadores</td>
+          <td class="num muted">500</td>
+          <td class="num">110</td>
+          <td><span class="delta neg"><span class="delta-icon">▼</span> 78%</span></td>
+        </tr>
+        <tr>
+          <td class="metric-name">Total de campanhas</td>
+          <td class="num muted">3</td>
+          <td class="num">2</td>
+          <td><span class="delta neutral"><span class="delta-icon">−</span> 1 camp.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callouts">
+    <div class="callout">
+      <div class="callout-eyebrow">Atenção</div>
+      <div class="callout-text">Queda de <strong>78% no pico</strong> de espectadores. Coincide com a ausência da campanha de retenção durante a live (presente na anterior).</div>
+    </div>
+    <div class="callout">
+      <div class="callout-eyebrow">Eficiência</div>
+      <div class="callout-text">CPL subiu para <strong>R$ 2,04 (+24%)</strong>, ainda dentro de patamar saudável para o nicho, mas vale acompanhar tendência.</div>
+    </div>
+    <div class="callout">
+      <div class="callout-eyebrow">Próximo passo</div>
+      <div class="callout-text">Reativar campanha de <strong>retenção em tempo real</strong> durante a live para sustentar o pico de audiência.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-text">Magnífica Joias · Dashboard de Captação · Live 17 de maio de 2026</div>
+</footer>
+
+</body>
+</html>
